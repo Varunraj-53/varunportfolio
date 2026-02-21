@@ -363,10 +363,22 @@ footer{
     color:#bba183;
     margin-top:40px;
 }
+
+#particleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    pointer-events: none;
+}
 </style>
 </head>
 
 <body>
+
+<canvas id="particleCanvas"></canvas>
 
 <header>
 <h1>Varun Raj</h1>
@@ -498,6 +510,131 @@ learning new technologies, and building practical applications that improve user
 <footer>
 <p>© 2026 Varun Raj | Portfolio</p>
 </footer>
+
+<script>
+const canvas = document.getElementById('particleCanvas');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+const particles = [];
+const particleCount = 200;
+const mouse = { x: null, y: null, radius: 150 };
+
+window.addEventListener('mousemove', (e) => {
+    mouse.x = e.x;
+    mouse.y = e.y;
+});
+
+class Particle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.z = Math.random() * 1000;
+        this.baseX = this.x;
+        this.baseY = this.y;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
+        this.targetX = this.x;
+        this.targetY = this.y;
+    }
+
+    update() {
+        // Mouse interaction - repel particles
+        if (mouse.x != null && mouse.y != null) {
+            const dx = mouse.x - this.x;
+            const dy = mouse.y - this.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const forceDirectionX = dx / distance;
+            const forceDirectionY = dy / distance;
+            const maxDistance = mouse.radius;
+            const force = (maxDistance - distance) / maxDistance;
+            
+            if (distance < mouse.radius) {
+                this.targetX = this.x - forceDirectionX * force * 100;
+                this.targetY = this.y - forceDirectionY * force * 100;
+            } else {
+                this.targetX = this.baseX;
+                this.targetY = this.baseY;
+            }
+        } else {
+            this.targetX = this.baseX;
+            this.targetY = this.baseY;
+        }
+
+        // Smooth movement (lerp)
+        this.x += (this.targetX - this.x) * 0.05;
+        this.y += (this.targetY - this.y) * 0.05;
+
+        // Float movement
+        this.baseX += this.speedX;
+        this.baseY += this.speedY;
+
+        // Wrap around edges
+        if (this.baseX > canvas.width) this.baseX = 0;
+        if (this.baseX < 0) this.baseX = canvas.width;
+        if (this.baseY > canvas.height) this.baseY = 0;
+        if (this.baseY < 0) this.baseY = canvas.height;
+    }
+
+    draw() {
+        ctx.fillStyle = '#FF9FFC';
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = '#FF9FFC';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+    }
+}
+
+// Initialize particles
+for (let i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
+}
+
+// Connect particles
+function connectParticles() {
+    for (let a = 0; a < particles.length; a++) {
+        for (let b = a + 1; b < particles.length; b++) {
+            const dx = particles[a].x - particles[b].x;
+            const dy = particles[a].y - particles[b].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < 100) {
+                ctx.strokeStyle = `rgba(255, 159, 252, ${1 - distance / 100})`;
+                ctx.lineWidth = 0.5;
+                ctx.beginPath();
+                ctx.moveTo(particles[a].x, particles[a].y);
+                ctx.lineTo(particles[b].x, particles[b].y);
+                ctx.stroke();
+            }
+        }
+    }
+}
+
+// Animation loop
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+    });
+    
+    connectParticles();
+    requestAnimationFrame(animate);
+}
+
+animate();
+</script>
 
 </body>
 </html>
