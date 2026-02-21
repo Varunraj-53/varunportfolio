@@ -524,8 +524,9 @@ window.addEventListener('resize', () => {
 });
 
 const particles = [];
-const particleCount = 200;
-const mouse = { x: null, y: null, radius: 150 };
+const particleCount = 150;
+const mouse = { x: null, y: null, radius: 200 };
+const colors = ['#f0c47a', '#f5d08a', '#d6a25b', '#bd945f', '#ffe0a6'];
 
 window.addEventListener('mousemove', (e) => {
     mouse.x = e.x;
@@ -539,11 +540,15 @@ class Particle {
         this.z = Math.random() * 1000;
         this.baseX = this.x;
         this.baseY = this.y;
-        this.size = Math.random() * 2 + 1;
-        this.speedX = Math.random() * 0.5 - 0.25;
-        this.speedY = Math.random() * 0.5 - 0.25;
+        this.size = Math.random() * 3 + 0.5;
+        this.speedX = Math.random() * 0.3 - 0.15;
+        this.speedY = Math.random() * 0.3 - 0.15;
         this.targetX = this.x;
         this.targetY = this.y;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.angle = Math.random() * Math.PI * 2;
+        this.rotationSpeed = (Math.random() - 0.5) * 0.02;
+        this.pulsePhase = Math.random() * Math.PI * 2;
     }
 
     update() {
@@ -558,8 +563,8 @@ class Particle {
             const force = (maxDistance - distance) / maxDistance;
             
             if (distance < mouse.radius) {
-                this.targetX = this.x - forceDirectionX * force * 100;
-                this.targetY = this.y - forceDirectionY * force * 100;
+                this.targetX = this.x - forceDirectionX * force * 120;
+                this.targetY = this.y - forceDirectionY * force * 120;
             } else {
                 this.targetX = this.baseX;
                 this.targetY = this.baseY;
@@ -570,12 +575,16 @@ class Particle {
         }
 
         // Smooth movement (lerp)
-        this.x += (this.targetX - this.x) * 0.05;
-        this.y += (this.targetY - this.y) * 0.05;
+        this.x += (this.targetX - this.x) * 0.08;
+        this.y += (this.targetY - this.y) * 0.08;
 
         // Float movement
         this.baseX += this.speedX;
         this.baseY += this.speedY;
+
+        // Rotation
+        this.angle += this.rotationSpeed;
+        this.pulsePhase += 0.02;
 
         // Wrap around edges
         if (this.baseX > canvas.width) this.baseX = 0;
@@ -585,13 +594,36 @@ class Particle {
     }
 
     draw() {
-        ctx.fillStyle = '#FF9FFC';
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = '#FF9FFC';
+        const pulse = Math.sin(this.pulsePhase) * 0.5 + 1;
+        const currentSize = this.size * pulse;
+        
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle);
+        
+        // Draw star shape
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = this.color;
+        
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        for (let i = 0; i < 5; i++) {
+            const angle = (Math.PI * 2 * i) / 5 - Math.PI / 2;
+            const x1 = Math.cos(angle) * currentSize;
+            const y1 = Math.sin(angle) * currentSize;
+            if (i === 0) ctx.moveTo(x1, y1);
+            else ctx.lineTo(x1, y1);
+            
+            const angle2 = angle + Math.PI / 5;
+            const x2 = Math.cos(angle2) * (currentSize * 0.4);
+            const y2 = Math.sin(angle2) * (currentSize * 0.4);
+            ctx.lineTo(x2, y2);
+        }
+        ctx.closePath();
         ctx.fill();
+        
         ctx.shadowBlur = 0;
+        ctx.restore();
     }
 }
 
@@ -608,9 +640,10 @@ function connectParticles() {
             const dy = particles[a].y - particles[b].y;
             const distance = Math.sqrt(dx * dx + dy * dy);
 
-            if (distance < 100) {
-                ctx.strokeStyle = `rgba(255, 159, 252, ${1 - distance / 100})`;
-                ctx.lineWidth = 0.5;
+            if (distance < 120) {
+                const opacity = (1 - distance / 120) * 0.3;
+                ctx.strokeStyle = `rgba(240, 196, 122, ${opacity})`;
+                ctx.lineWidth = 1;
                 ctx.beginPath();
                 ctx.moveTo(particles[a].x, particles[a].y);
                 ctx.lineTo(particles[b].x, particles[b].y);
@@ -624,12 +657,13 @@ function connectParticles() {
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
+    connectParticles();
+    
     particles.forEach(particle => {
         particle.update();
         particle.draw();
     });
     
-    connectParticles();
     requestAnimationFrame(animate);
 }
 
