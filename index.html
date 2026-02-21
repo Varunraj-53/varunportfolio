@@ -327,7 +327,104 @@ ul li{
     font-weight:500;
 }
 
+.contact-container{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:30px;
+    margin-top:20px;
+}
+
+@media (max-width: 900px) {
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.contact-form{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.form-group label{
+    color:#f5d08a;
+    font-size:14px;
+    font-weight:500;
+    letter-spacing:.2px;
+}
+
+.form-group input,
+.form-group textarea{
+    background:rgba(18,11,7,0.6);
+    border:1px solid rgba(214,162,91,0.35);
+    border-radius:10px;
+    padding:12px 14px;
+    color:#f7efe5;
+    font-family:inherit;
+    font-size:14px;
+    transition:.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus{
+    outline:none;
+    border-color:#f0c47a;
+    box-shadow:0 0 12px rgba(214,162,91,0.3);
+    background:rgba(18,11,7,0.8);
+}
+
+.form-group textarea{
+    resize:vertical;
+    min-height:120px;
+    font-family:inherit;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder{
+    color:#8b7355;
+}
+
+.submit-btn{
+    background:linear-gradient(135deg, #f0c47a, #f5d08a);
+    color:#1a120b;
+    border:none;
+    padding:12px 24px;
+    border-radius:10px;
+    font-weight:600;
+    font-size:15px;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 6px 20px rgba(214,162,91,0.3);
+    letter-spacing:.3px;
+}
+
+.submit-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 25px rgba(214,162,91,0.5);
+}
+
+.submit-btn:active{
+    transform:translateY(0);
+}
+
 .contact-list{
+    display:grid;
+    gap:14px;
+    margin-top:12px;
+}
+
+.contact-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
     display:grid;
     gap:14px;
     margin-top:12px;
@@ -626,32 +723,72 @@ learning new technologies, and building practical applications that improve user
 
 <section id="contact">
 <div class="card">
-<h3>Contact</h3>
-<div class="contact-list">
-    <a class="contact-card email" href="mailto:kalavarunraj@gmail.com">
-        <div class="contact-icon"><i class="fa-regular fa-envelope"></i></div>
-        <div>
-            <p>Email</p>
+<h3>Get in Touch</h3>
+<div class="contact-container">
+    <!-- Contact Info -->
+    <div>
+        <h4 style="color:#f5d08a; margin-bottom:16px; font-size:16px;">Contact Information</h4>
+        <div class="contact-list">
+            <a class="contact-card email" href="mailto:kalavarunraj@gmail.com">
+                <div class="contact-icon"><i class="fa-regular fa-envelope"></i></div>
+                <div>
+                    <p>Email</p>
+                    <span style="color:#cdb79a; font-size:13px;">kalavarunraj@gmail.com</span>
+                </div>
+            </a>
+            <a class="contact-card linkedin" href="https://www.linkedin.com/in/varun-raj-04b69b338/" target="_blank" rel="noopener noreferrer">
+                <div class="contact-icon"><i class="fa-brands fa-linkedin-in"></i></div>
+                <div>
+                    <p>LinkedIn</p>
+                    <span style="color:#cdb79a; font-size:13px;">Varun Raj</span>
+                </div>
+            </a>
+            <a class="contact-card github" href="https://github.com/Varunraj-53" target="_blank" rel="noopener noreferrer">
+                <div class="contact-icon"><i class="fa-brands fa-github"></i></div>
+                <div>
+                    <p>GitHub</p>
+                    <span style="color:#cdb79a; font-size:13px;">Varunraj-53</span>
+                </div>
+            </a>
+            <a class="contact-card location" href="https://www.google.com/maps?q=Hyderabad, India" target="_blank" rel="noopener noreferrer">
+                <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                <div>
+                    <p>Location</p>
+                    <span style="color:#cdb79a; font-size:13px;">Hyderabad, India</span>
+                </div>
+            </a>
         </div>
-    </a>
-    <a class="contact-card linkedin" href="https://www.linkedin.com/in/varun-raj-04b69b338/" target="_blank" rel="noopener noreferrer">
-        <div class="contact-icon"><i class="fa-brands fa-linkedin-in"></i></div>
-        <div>
-            <p>LinkedIn</p>
-        </div>
-    </a>
-    <a class="contact-card github" href="https://github.com/Varunraj-53" target="_blank" rel="noopener noreferrer">
-        <div class="contact-icon"><i class="fa-brands fa-github"></i></div>
-        <div>
-            <p>GitHub</p>
-        </div>
-    </a>
-    <a class="contact-card location" href="https://www.google.com/maps?q=Hyderabad, India" target="_blank" rel="noopener noreferrer">
-        <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
-        <div>
-            <p>Location</p>
-        </div>
-    </a>
+    </div>
+    
+    <!-- Message Form -->
+    <div>
+        <h4 style="color:#f5d08a; margin-bottom:16px; font-size:16px;">Send Message</h4>
+        <form class="contact-form" action="https://formspree.io/f/xvgzrpbv" method="POST">
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" placeholder="John Doe" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="your@email.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="_subject" placeholder="Project Inquiry" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Your message here..." required></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+                <i class="fa-solid fa-paper-plane" style="margin-right:8px;"></i>Send Message
+            </button>
+        </form>
+    </div>
 </div>
 </div>
 </section>
