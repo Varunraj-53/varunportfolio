@@ -1,462 +1,503 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Student Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Varun Raj | Portfolio</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+    background: linear-gradient(135deg, #0b0b0b 0%, #2b1a0f 45%, #120b07 100%);
+    background-size: 200% 200%;
+    animation: bgShift 14s ease infinite;
+    color:#f7efe5;
+    line-height:1.6;
+    min-height:100vh;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:-20% -10% auto -10%;
+    height:60vh;
+    background: radial-gradient(circle at 20% 20%, rgba(139,94,60,.22), transparent 60%),
+                radial-gradient(circle at 80% 30%, rgba(94,64,38,.18), transparent 55%),
+                radial-gradient(circle at 50% 80%, rgba(189,126,79,.18), transparent 60%);
+    pointer-events:none;
+    filter: blur(10px);
+    z-index:-1;
+}
+
+header{
+    position:fixed;
+    width:100%;
+    top:0;
+    background:rgba(2,6,23,0.7);
+    backdrop-filter: blur(10px);
+    padding:15px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:1000;
+    border-bottom:1px solid #1e293b;
+}
+
+header h1{
+    color:#f0c47a;
+    font-size:22px;
+}
+
+nav a{
+    color:#ead8c4;
+    text-decoration:none;
+    margin-left:25px;
+    transition:.3s;
+    font-size:15px;
+}
+
+nav a:hover{
+    color:#f5d08a;
+    text-shadow: 0 0 12px rgba(245,208,138,0.6);
+}
+
+section{
+    padding:90px 40px;
+    max-width:1000px;
+    margin:auto;
+    position:relative;
+}
+
+section::after{
+    content:"";
+    display:block;
+    height:1px;
+    margin-top:35px;
+    background:linear-gradient(90deg, transparent, rgba(214,162,91,0.35), transparent);
+}
+
+section:nth-of-type(even){
+    background:linear-gradient(90deg, rgba(13,11,7,0.7), rgba(59,44,26,0.35), rgba(13,11,7,0.7));
+    border-radius:18px;
+}
+
+.hero{
+    text-align:center;
+    padding-top:140px;
+    background: radial-gradient(circle at top, rgba(214,162,91,0.18), transparent 55%);
+    border-radius:24px;
+}
+
+.hero h2{
+    font-size:42px;
+    background: linear-gradient(90deg, #f0c47a, #ffe0a6);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+}
+
+.hero p{
+    margin-top:10px;
+    color:#e1cfb9;
+    font-size:18px;
+}
+
+.card{
+    background:transparent;
+    box-shadow:none;
+    padding:6px 0 6px 18px;
+    margin-top:10px;
+    border-radius:0;
+    border-left:0;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    text-shadow: 0 0 12px rgba(214,162,91,0.25);
+}
+
+h3{
+    color:#f5d08a;
+    margin-bottom:10px;
+    font-size:22px;
+    letter-spacing:.3px;
+}
+
+ul{
+    list-style:none;
+}
+
+ul li{
+    margin-bottom:6px;
+}
+
+.skills{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap:14px;
+    margin-top:10px;
+}
+
+.skills span{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    background:#2b1a0f;
+    padding:18px 16px;
+    border-radius:14px;
+    border:1px solid rgba(214,162,91,0.35);
+    font-size:15px;
+    min-height:110px;
+    transition:.3s;
+}
+
+.skills i{
+    font-size:34px;
+}
+
+.education-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap:16px;
+    margin-top:10px;
+}
+
+.edu-card{
+    background:#2b1a0f;
+    border:1px solid rgba(214,162,91,0.35);
+    border-radius:16px;
+    padding:18px 16px;
+    min-height:140px;
+    transition:.3s;
+}
+
+.edu-card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 0 18px rgba(214,162,91,0.35);
+}
+
+.edu-card h4{
+    color:#f5d08a;
+    margin-bottom:8px;
+    font-size:16px;
+    letter-spacing:.2px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.edu-card .edu-icon{
+    font-size:18px;
+}
+
+.profiles{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap:14px;
+    margin-top:12px;
+}
+
+.profile-card{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    background:#2b1a0f;
+    border:1px solid rgba(214,162,91,0.35);
+    border-radius:14px;
+    padding:18px 16px;
+    min-height:120px;
+    text-decoration:none;
+    color:#f7efe5;
+    transition:.3s;
+}
+
+.profile-card i{
+    font-size:32px;
+}
+
+.profile-card.codechef i{ color:#a77b5a; }
+.profile-card.leetcode i{ color:#f59e0b; }
+
+.profile-card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 0 18px rgba(214,162,91,0.35);
+}
+
+.contact-list{
+    display:grid;
+    gap:14px;
+    margin-top:12px;
+}
+
+.contact-card{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    background:rgba(18,11,7,0.8);
+    border:1px solid rgba(214,162,91,0.25);
+    border-radius:18px;
+    padding:16px 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    text-decoration:none;
+    color:inherit;
+}
+
+.contact-icon{
+    width:48px;
+    height:48px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    color:#f7efe5;
+    background:linear-gradient(135deg, rgba(214,162,91,0.25), rgba(214,162,91,0.05));
+    border:1px solid rgba(214,162,91,0.35);
+}
+
+.contact-card.email .contact-icon{ color:#f59e0b; }
+.contact-card.phone .contact-icon{ color:#22c55e; }
+.contact-card.linkedin .contact-icon{ color:#0a66c2; }
+.contact-card.github .contact-icon{ color:#e5e7eb; }
+.contact-card.location .contact-icon{ color:#a855f7; }
+
+.contact-card h4{
+    margin:0;
+    color:#f7efe5;
+    font-size:16px;
+    letter-spacing:.2px;
+}
+
+.contact-card p{
+    margin:4px 0 0;
+    color:#cdb79a;
+    font-size:14px;
+}
+
+.contact-card a{
+    color:#f5d08a;
+    text-decoration:none;
+}
+
+.edu-meta{
+    color:#e1cfb9;
+    font-size:14px;
+    margin-bottom:6px;
+}
+
+.cert-list,
+.pill-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:8px;
+}
+
+.cert-list li,
+.pill-list li{
+    background:rgba(214,162,91,0.12);
+    border:1px solid rgba(214,162,91,0.35);
+    padding:8px 14px;
+    border-radius:999px;
+    font-size:14px;
+    letter-spacing:.2px;
+    transition:.3s;
+}
+
+.cert-list li:hover,
+.pill-list li:hover{
+    background:rgba(214,162,91,0.22);
+    box-shadow: 0 0 18px rgba(214,162,91,0.35);
+    transform: translateY(-2px);
+}
+
+.skills span:hover{
+    background:#3b2c1a;
+    color:#f7e7d3;
+    box-shadow: 0 0 18px rgba(214,162,91,0.35);
+    transform: translateY(-2px);
+}
+
+a.button{
+    display:inline-block;
+    margin-top:10px;
+    padding:10px 18px;
+    background:#f0c47a;
+    color:#1a120b;
+    text-decoration:none;
+    border-radius:5px;
+    font-weight:bold;
+    box-shadow: 0 8px 20px rgba(214,162,91,0.3);
+    transition:.3s;
+}
+
+a.button:hover{
+    box-shadow: 0 0 20px rgba(240,196,122,0.6), 0 0 50px rgba(240,196,122,0.25);
+    transform: translateY(-2px);
+}
+
+@keyframes bgShift{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+footer{
+    text-align:center;
+    padding:20px;
+    border-top:1px solid #3b2c1a;
+    color:#bba183;
+    margin-top:40px;
+}
+</style>
 </head>
+
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <h2>YOUR NAME</h2>
-            </div>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+
+<header>
+<h1>Varun Raj</h1>
+<nav>
+<a href="#about">About</a>
+<a href="#education">Education</a>
+<a href="#skills">Skills</a>
+<a href="#certificates">Certificates</a>
+<a href="#profiles">Profiles</a>
+<a href="#contact">Contact</a>
+</nav>
+</header>
+
+<section class="hero">
+<h2>BALA SUNDAR VARUN RAJ</h2>
+<p>Web Developer | Computer Science Engineer</p>
+<p>Passionate about building efficient and user-friendly web applications.</p>
+</section>
+
+<section id="about">
+<div class="card">
+<h3>About Me</h3>
+<p>
+I am a Computer Science student at KLH, focused on developing strong skills in
+software development and web technologies. I enjoy solving programming problems,
+learning new technologies, and building practical applications that improve user experience.
+</p>
+</div>
+</section>
+
+<section id="education">
+<div class="card">
+<h3>Education</h3>
+<div class="education-grid">
+    <div class="edu-card">
+        <h4><span class="edu-icon">🎓</span>B.Tech (CSE)</h4>
+        <div class="edu-meta">KLH (2024–2028)</div>
+        <div class="edu-meta">CGPA: 9.46</div>
+    </div>
+    <div class="edu-card">
+        <h4><span class="edu-icon">🏫</span>Intermediate</h4>
+        <div class="edu-meta">Narayana Jr College</div>
+        <div class="edu-meta">Percentage: 96.3%</div>
+    </div>
+    <div class="edu-card">
+        <h4><span class="edu-icon">📘</span>Schooling</h4>
+        <div class="edu-meta">St. Paul's High School</div>
+        <div class="edu-meta">GPA: 9.3</div>
+    </div>
+</div>
+</div>
+</section>
+
+<section id="skills">
+<div class="card">
+<h3>Technical Skills</h3>
+<div class="skills">
+<span><i class="devicon-c-plain colored"></i>C</span>
+<span><i class="devicon-java-plain colored"></i>Java</span>
+<span><i class="devicon-html5-plain colored"></i>HTML</span>
+<span><i class="devicon-css3-plain colored"></i>CSS</span>
+<span><i class="devicon-javascript-plain colored"></i>JavaScript</span>
+<span><i class="devicon-mysql-plain colored"></i>MySQL</span>
+</div>
+</div>
+</section>
+
+<section id="profiles">
+<div class="card">
+<h3>Coding Profiles</h3>
+<p>Explore my work and coding activity:</p>
+<div class="profiles">
+    <a class="profile-card codechef" href="https://www.codechef.com/users/varun_053" target="_blank">
+        <i class="fa-solid fa-code"></i>
+        <span>CodeChef</span>
+    </a>
+    <a class="profile-card leetcode" href="https://leetcode.com/u/varun_raj_53/" target="_blank">
+        <i class="fa-solid fa-code"></i>
+        <span>LeetCode</span>
+    </a>
+</div>
+</div>
+</section>
+
+<section id="certificates">
+<div class="card">
+<h3>Certificates</h3>
+<ul class="pill-list">
+<li>ReactJS</li>
+<li>JavaScript Certification</li>
+<li>HTML and CSS Certification</li>
+<li>MongoDB Certification</li>
+</ul>
+</div>
+</section>
+
+<section id="contact">
+<div class="card">
+<h3>Contact</h3>
+<div class="contact-list">
+    <a class="contact-card email" href="mailto:kalavarunraj@gmail.com">
+        <div class="contact-icon"><i class="fa-regular fa-envelope"></i></div>
+        <div>
+            <p>Email</p>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <p class="greeting">Hi! I Am</p>
-                <h1 class="name">YOUR NAME</h1>
-                <h2 class="title">Computer Science Student</h2>
-                <p class="description">
-                    Passionate student with a high level of interest in programming, 
-                    web development, and problem-solving, continuously learning and 
-                    building quality projects.
-                </p>
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">Contact Me</a>
-                    <a href="#projects" class="btn btn-secondary">View Projects</a>
-                </div>
-                <div class="social-links">
-                    <a href="https://github.com/yourusername" target="_blank" aria-label="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://linkedin.com/in/yourusername" target="_blank" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://instagram.com/yourusername" target="_blank" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="mailto:your.email@example.com" aria-label="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <div class="profile-pic">
-                    <i class="fas fa-user"></i>
-                </div>
-            </div>
+    </a>
+    <a class="contact-card linkedin" href="https://www.linkedin.com/in/varun-raj-04b69b338/" target="_blank" rel="noopener noreferrer">
+        <div class="contact-icon"><i class="fa-brands fa-linkedin-in"></i></div>
+        <div>
+            <p>LinkedIn</p>
         </div>
-        <div class="scroll-down">
-            <i class="fas fa-chevron-down"></i>
+    </a>
+    <a class="contact-card github" href="https://github.com/Varunraj-53" target="_blank" rel="noopener noreferrer">
+        <div class="contact-icon"><i class="fa-brands fa-github"></i></div>
+        <div>
+            <p>GitHub</p>
         </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">About Me</h2>
-                <div class="title-underline"></div>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Student Developer</h3>
-                    <p>
-                        I am a dedicated Computer Science student passionate about technology 
-                        and innovation. Currently pursuing my degree, I focus on building practical 
-                        skills through hands-on projects and continuous learning.
-                    </p>
-                    <p>
-                        My journey in programming started with curiosity and has evolved into 
-                        a strong foundation in web development, data structures, and software engineering. 
-                        I enjoy solving complex problems and creating solutions that make a difference.
-                    </p>
-                    <div class="about-info">
-                        <div class="info-item">
-                            <span class="info-label">Name:</span>
-                            <span class="info-value">Your Full Name</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Email:</span>
-                            <span class="info-value">your.email@example.com</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Education:</span>
-                            <span class="info-value">B.Tech in Computer Science</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Location:</span>
-                            <span class="info-value">Your City, Country</span>
-                        </div>
-                    </div>
-                    <a href="resume.pdf" class="btn btn-primary" download>
-                        <i class="fas fa-download"></i> Download CV
-                    </a>
-                </div>
-                <div class="about-stats">
-                    <div class="stat-card">
-                        <i class="fas fa-graduation-cap"></i>
-                        <h3>3+</h3>
-                        <p>Years of Study</p>
-                    </div>
-                    <div class="stat-card">
-                        <i class="fas fa-project-diagram"></i>
-                        <h3>15+</h3>
-                        <p>Projects Completed</p>
-                    </div>
-                    <div class="stat-card">
-                        <i class="fas fa-code"></i>
-                        <h3>8+</h3>
-                        <p>Technologies Learned</p>
-                    </div>
-                </div>
-            </div>
+    </a>
+    <a class="contact-card location" href="https://www.google.com/maps?q=Hyderabad, India" target="_blank" rel="noopener noreferrer">
+        <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+        <div>
+            <p>Location</p>
         </div>
-    </section>
+    </a>
+</div>
+</div>
+</section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">My Skills</h2>
-                <div class="title-underline"></div>
-                <p class="section-subtitle">Technologies and tools I work with</p>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fab fa-html5"></i>
-                    </div>
-                    <h3>Web Development</h3>
-                    <p>HTML, CSS, JavaScript, React</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fab fa-python"></i>
-                    </div>
-                    <h3>Programming</h3>
-                    <p>Python, Java, C++</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>Database</h3>
-                    <p>MySQL, MongoDB</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fab fa-git-alt"></i>
-                    </div>
-                    <h3>Version Control</h3>
-                    <p>Git, GitHub</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Data Structures</h3>
-                    <p>Algorithms & Problem Solving</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Responsive Design</h3>
-                    <p>Mobile-First Development</p>
-                </div>
-            </div>
+<footer>
+<p>© 2026 Varun Raj | Portfolio</p>
+</footer>
 
-            <!-- Progress Bars -->
-            <div class="skills-progress">
-                <div class="progress-item">
-                    <div class="progress-header">
-                        <span>HTML/CSS</span>
-                        <span>90%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 90%"></div>
-                    </div>
-                </div>
-                <div class="progress-item">
-                    <div class="progress-header">
-                        <span>JavaScript</span>
-                        <span>80%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 80%"></div>
-                    </div>
-                </div>
-                <div class="progress-item">
-                    <div class="progress-header">
-                        <span>Python</span>
-                        <span>85%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 85%"></div>
-                    </div>
-                </div>
-                <div class="progress-item">
-                    <div class="progress-header">
-                        <span>React</span>
-                        <span>75%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 75%"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Recent Projects</h2>
-                <div class="title-underline"></div>
-                <p class="section-subtitle">Some of my academic and personal projects</p>
-            </div>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Portfolio Website</h3>
-                        <p>Personal portfolio website built with HTML, CSS, and JavaScript showcasing my work and skills.</p>
-                        <div class="project-tags">
-                            <span class="tag">HTML</span>
-                            <span class="tag">CSS</span>
-                            <span class="tag">JavaScript</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="#" class="project-link">
-                                <i class="fab fa-github"></i> Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-shopping-cart"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>E-Commerce Website</h3>
-                        <p>Full-stack e-commerce platform with product listings, cart functionality, and user authentication.</p>
-                        <div class="project-tags">
-                            <span class="tag">React</span>
-                            <span class="tag">Node.js</span>
-                            <span class="tag">MongoDB</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="#" class="project-link">
-                                <i class="fab fa-github"></i> Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-tasks"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Task Management App</h3>
-                        <p>Web application for managing tasks and projects with drag-and-drop functionality and real-time updates.</p>
-                        <div class="project-tags">
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">Firebase</span>
-                            <span class="tag">CSS</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="#" class="project-link">
-                                <i class="fab fa-github"></i> Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-chart-bar"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Data Visualization Dashboard</h3>
-                        <p>Interactive dashboard for visualizing data using charts and graphs with responsive design.</p>
-                        <div class="project-tags">
-                            <span class="tag">Python</span>
-                            <span class="tag">D3.js</span>
-                            <span class="tag">Flask</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="#" class="project-link">
-                                <i class="fab fa-github"></i> Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Machine Learning Model</h3>
-                        <p>Classification model for predicting outcomes using scikit-learn with data preprocessing and analysis.</p>
-                        <div class="project-tags">
-                            <span class="tag">Python</span>
-                            <span class="tag">ML</span>
-                            <span class="tag">Pandas</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="#" class="project-link">
-                                <i class="fab fa-github"></i> Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-comments"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Chat Application</h3>
-                        <p>Real-time chat application with user authentication, message history, and online status indicators.</p>
-                        <div class="project-tags">
-                            <span class="tag">React</span>
-                            <span class="tag">Socket.io</span>
-                            <span class="tag">Node.js</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="#" class="project-link">
-                                <i class="fab fa-github"></i> Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Get In Touch</h2>
-                <div class="title-underline"></div>
-                <p class="section-subtitle">Feel free to contact me for any queries or opportunities</p>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Email</h4>
-                            <p>your.email@example.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Phone</h4>
-                            <p>+1 (123) 456-7890</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Location</h4>
-                            <p>Your City, Country</p>
-                        </div>
-                    </div>
-                    <div class="social-links-contact">
-                        <a href="https://github.com/yourusername" target="_blank" aria-label="GitHub">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://linkedin.com/in/yourusername" target="_blank" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://instagram.com/yourusername" target="_blank" aria-label="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </div>
-                </div>
-                <form class="contact-form" id="contactForm">
-                    <div class="form-group">
-                        <input type="text" name="name" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" name="email" placeholder="Your Email" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" name="subject" placeholder="Subject" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-paper-plane"></i> Send Message
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Your Name. All rights reserved.</p>
-            <p>Designed & Built with <i class="fas fa-heart"></i> by Your Name</p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>
