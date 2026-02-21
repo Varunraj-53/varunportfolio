@@ -763,7 +763,7 @@ learning new technologies, and building practical applications that improve user
     <!-- Message Form -->
     <div>
         <h4 style="color:#f5d08a; margin-bottom:16px; font-size:16px;">Send Message</h4>
-        <form class="contact-form" action="https://formspree.io/f/xvgzrpbv" method="POST">
+        <form class="contact-form" id="contactForm">
             <div class="form-group">
                 <label for="name">Your Name</label>
                 <input type="text" id="name" name="name" placeholder="John Doe" required>
@@ -776,7 +776,7 @@ learning new technologies, and building practical applications that improve user
             
             <div class="form-group">
                 <label for="subject">Subject</label>
-                <input type="text" id="subject" name="_subject" placeholder="Project Inquiry" required>
+                <input type="text" id="subject" name="subject" placeholder="Project Inquiry" required>
             </div>
             
             <div class="form-group">
@@ -784,9 +784,10 @@ learning new technologies, and building practical applications that improve user
                 <textarea id="message" name="message" placeholder="Your message here..." required></textarea>
             </div>
             
-            <button type="submit" class="submit-btn">
+            <button type="submit" class="submit-btn" id="submitBtn">
                 <i class="fa-solid fa-paper-plane" style="margin-right:8px;"></i>Send Message
             </button>
+            <div id="formMessage" style="margin-top:10px; padding:10px; border-radius:8px; display:none; font-size:14px;"></div>
         </form>
     </div>
 </div>
@@ -939,6 +940,59 @@ function animate() {
 }
 
 animate();
+
+// Contact Form Handler
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const subject = document.getElementById('subject').value;
+    const message = document.getElementById('message').value;
+    const submitBtn = document.getElementById('submitBtn');
+    const formMessage = document.getElementById('formMessage');
+    
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+    
+    try {
+        // Send to your email using a simple backend endpoint
+        // For now, we'll use a public form service
+        const response = await fetch('https://formspree.io/f/xvaonqzq', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                subject: subject,
+                message: message
+            })
+        });
+        
+        if (response.ok) {
+            formMessage.style.display = 'block';
+            formMessage.style.background = 'rgba(34, 197, 94, 0.2)';
+            formMessage.style.borderLeft = '4px solid #22c55e';
+            formMessage.style.color = '#22c55e';
+            formMessage.textContent = '✓ Message sent successfully! I\'ll get back to you soon.';
+            document.getElementById('contactForm').reset();
+        } else {
+            throw new Error('Failed to send message');
+        }
+    } catch (error) {
+        formMessage.style.display = 'block';
+        formMessage.style.background = 'rgba(239, 68, 68, 0.2)';
+        formMessage.style.borderLeft = '4px solid #ef4444';
+        formMessage.style.color = '#ef4444';
+        formMessage.textContent = '✗ Error sending message. Please try again or email directly.';
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane" style="margin-right:8px;"></i>Send Message';
+    }
+});
 </script>
 
 </body>
