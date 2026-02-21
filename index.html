@@ -945,10 +945,7 @@ animate();
 document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const subject = document.getElementById('subject').value;
-    const message = document.getElementById('message').value;
+    const formData = new FormData(this);
     const submitBtn = document.getElementById('submitBtn');
     const formMessage = document.getElementById('formMessage');
     
@@ -959,17 +956,9 @@ document.getElementById('contactForm').addEventListener('submit', async function
     try {
         // Send to your email using a simple backend endpoint
         // For now, we'll use a public form service
-        const response = await fetch('https://formsubmit.co/re_guZ6681t_3cYesQwUFRZ6b3aMojQ9xpmh', {
+        const response = await fetch('https://formsubmit.co/kalavarunraj@gmail.com', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name: name,
-                email: email,
-                subject: subject,
-                message: message
-            })
+            body: formData
         });
         
         if (response.ok) {
